@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.com">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <!-- Font Awesome CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <title>Create Account</title>
+
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            overflow-x: hidden;
+        }
+        .fullcard {
+            background: url("images/home.jpg") no-repeat center center fixed;
+            background-size: cover;
+            min-height: 100%;
+            position: relative;
+        }
+        .navbar .nav-item:hover .nav-link {
+            color: black;
+            background-color: azure;
+            border-radius: 15px;
+        }
+        .create-account-container {
+            margin-top: 50px;
+            padding-bottom: 60px; /* Ensure space for the submit button */
+        }
+        .card {
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .btn-primary {
+            width: 100%;
+            border-radius: 15px;
+        }
+        .form-control, textarea {
+            border-radius: 10px;
+        }
+        .card-body {
+            padding: 2rem;
+        }
+        .card-title {
+            margin-bottom: 2rem;
+        }
+        .card-footer {
+            width: 100%;
+            position: absolute;
+            bottom: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="fullcard">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <a class="navbar-brand" href="#"><i class="fa fa-university" aria-hidden="true"></i> Bank Management System</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="Home"><i class="fa fa-home" aria-hidden="true"></i> Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="accounts"><i class="fa fa-users" aria-hidden="true"></i> View Accounts</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="EditAccounts"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit Accounts</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item ml-3">
+                        <a class="nav-link" href="index"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <div class="container create-account-container">
+            <div class="row">
+                <div class="col-md-6 offset-md-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title text-center text-primary">Create Account</h4>
+                            <form th:action="@{/create}" method="post">
+								<center><div th:if="${errorMessage}" class="alert alert-danger mt-3" th:text="${errorMessage}"></div></center>
+								<center><div th:if="${success}" class="alert alert-success mt-3" th:text="${success}"></div></center>
+                                <div class="form-group">
+                                    <label for="first_name"><i class="fa fa-user" aria-hidden="true"></i> First Name</label>
+                                    <input type="text" class="form-control" id="first_name" placeholder="Enter the first name" name="first_name" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="last_name"><i class="fa fa-user" aria-hidden="true"></i> Last Name</label>
+                                    <input type="text" class="form-control" id="last_name" placeholder="Enter the last name" name="last_name" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="address"><i class="fa fa-address-card" aria-hidden="true"></i> Address</label>
+                                    <textarea class="form-control" id="address" rows="3" placeholder="Enter the address" name="address" required></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="phoneNo"><i class="fa fa-phone-square" aria-hidden="true"></i> Phone Number</label>
+                                    <input type="text" class="form-control" id="phoneNo" placeholder="Enter the phone number" name="phoneNo" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="accountType"><i class="fa fa-list-alt" aria-hidden="true"></i> Account Type</label>
+                                    <select class="form-control" id="accountType" name="accountType" required>
+                                        <option value="Savings">Savings</option>
+                                        <option value="Current">Current</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="accountNo"><i class="fa fa-users" aria-hidden="true"></i> Account Number</label>
+                                    <input type="text" class="form-control" id="accountNo" placeholder="Enter the account number" name="accountNo" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="balance"><i class="fa fa-money" aria-hidden="true"></i> Initial Deposit</label>
+                                    <input type="number" class="form-control" id="balance" placeholder="Enter initial deposit amount" name="balance" required>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Create Account</button>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-footer bg-dark text-center text-white">
+            &copy; 2024 Bank Management System
+        </div>
+    </div>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzm7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7W5W39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>

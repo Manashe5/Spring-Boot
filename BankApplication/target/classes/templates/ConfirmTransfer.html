@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.com">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirm Transfer</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .card-header {
+            background-color: #007bff;
+            color: white;
+            text-align: center;
+        }
+        .card-body {
+            background-color: #ffffff;
+        }
+        .card-title {
+            color: #007bff;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border: none;
+        }
+        .btn-secondary {
+            background-color: #6c757d;
+            border: none;
+        }
+        .btn-primary:hover, .btn-secondary:hover {
+            opacity: 0.8;
+        }
+        .form-control {
+            border-radius: 0.25rem;
+        }
+        .alert {
+            margin-top: 15px;
+        }
+        .account-info {
+            border: 1px solid #dee2e6;
+            border-radius: 0.25rem;
+            padding: 15px;
+            margin-bottom: 15px;
+            background-color: #f8f9fa;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="card shadow-lg">
+            <div class="card-header">
+                <h4>Confirm Transfer</h4>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <!-- First Account Details -->
+                    <div class="col-md-6">
+                        <h5 class="card-title">First Account Details</h5>
+                        <small class="form-text text-muted">The account from which money will be transferred.</small>
+                        <div class="account-info">
+                            <p><strong>Account Number:</strong> <span th:text="${accountNo1.accountNo}"></span></p>
+                            <p><strong>Name:</strong> <span th:text="${accountNo1.first_name} + ' ' + ${accountNo1.last_name}"></span></p>
+                            <p><strong>Account Type:</strong> <span th:text="${accountNo1.accountType}"></span></p>
+                            <p><strong>Phone Number:</strong> <span th:text="${accountNo1.phoneNo}"></span></p>
+                            <p><strong>Current Balance:</strong> <span th:text="${accountNo1.balance}"></span></p>
+                        </div>
+                    </div>
+                    <!-- Second Account Details -->
+                    <div class="col-md-6">
+                        <h5 class="card-title">Second Account Details</h5>
+                        <small class="form-text text-muted">The account to which money will be transferred.</small>
+                        <div class="account-info">
+                            <p><strong>Account Number:</strong> <span th:text="${accountNo2.accountNo}"></span></p>
+                            <p><strong>Name:</strong> <span th:text="${accountNo2.first_name} + ' ' + ${accountNo2.last_name}"></span></p>
+                            <p><strong>Account Type:</strong> <span th:text="${accountNo2.accountType}"></span></p>
+                            <p><strong>Phone Number:</strong> <span th:text="${accountNo2.phoneNo}"></span></p>
+                            <p><strong>Current Balance:</strong> <span th:text="${accountNo2.balance}"></span></p>
+                        </div>
+                    </div>
+                </div>
+                <form th:action="@{/ConfirmTransfer}" method="post">
+                    <input type="hidden" name="accountNo1" th:value="${accountNo1.accountNo}">
+                    <input type="hidden" name="accountNo2" th:value="${accountNo2.accountNo}">
+                    <div class="form-group">
+                        <label for="amount">Enter amount to transfer</label>
+                        <input type="number" class="form-control" id="amount" placeholder="Enter amount" name="amount" required min="0.01" step="0.01">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Confirm Transfer</button>
+                    <a href="/transfer" class="btn btn-secondary">Cancel</a>
+                </form>
+
+                <div th:if="${success}" class="alert alert-success mt-4" th:text="${success}"></div>
+                <div th:if="${Nosufficient}" class="alert alert-danger mt-2" th:text="${Nosufficient}"></div>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.min.js"></script>
+</body>
+</html>

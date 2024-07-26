@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <!-- Font Awesome CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <title>Bank Management System - Account Details</title>
+
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+        }
+        .fullcard {
+            background: url("images/background.jpg") no-repeat center center fixed;
+            background-size: cover;
+            height: 100%;
+        }
+        .navbar .nav-item:hover .nav-link {
+            color: black;
+            background-color: azure;
+            border-radius: 15px;
+        }
+        .card-footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+        .module-container {
+            margin-top: 10%;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            text-align: center;
+        }
+        .module-container h3 {
+            margin-bottom: 20px;
+        }
+        .btn-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .btn-container .btn {
+            margin: 10px;
+            padding: 15px 25px;
+            font-size: 16px;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #007bff, #00d2ff);
+            border: none;
+            color: white;
+        }
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #0056b3, #00aaff);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .btn-success {
+            background: linear-gradient(135deg, #28a745, #00ff6e);
+            border: none;
+            color: white;
+        }
+        .btn-success:hover {
+            background: linear-gradient(135deg, #218838, #00e676);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .btn-info {
+            background: linear-gradient(135deg, #17a2b8, #00d8ff);
+            border: none;
+            color: white;
+        }
+        .btn-info:hover {
+            background: linear-gradient(135deg, #117a8b, #00b8d4);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body>
+<div class="fullcard">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#"><i class="fa fa-university" aria-hidden="true"></i> Bank Management System</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link active" href="Home"><i class="fa fa-home" aria-hidden="true"></i> Home <span class="sr-only">(current)</span></a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link active" href="index"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-4 module-container">
+                <h3 class="text-center">Account Details Modules</h3>
+                <div class="btn-container">
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#findBalanceModal">
+                        <i class="fa fa-search" aria-hidden="true"></i> Find Balance With Account Number
+                    </button>
+                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#findAccountModal">
+                        <i class="fa fa-search" aria-hidden="true"></i> Find Account Details With Account Number
+                    </button>
+                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#findAccountNumberModal">
+                        <i class="fa fa-search" aria-hidden="true"></i> Find Account Number Using Name And Phone Number
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card-footer bg-dark text-center text-white">
+        &copy; 2024 Bank Management System
+    </div>
+</div>
+
+<!-- Modals -->
+<!-- Find Balance Modal -->
+<div class="modal fade" id="findBalanceModal" tabindex="-1" role="dialog" aria-labelledby="findBalanceModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="findBalanceModalLabel">Find Balance by Account Number</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form th:action="@{/findBalance}" method="post">
+                    <div class="form-group">
+                        <label for="accountNo">Enter Account Number:</label>
+                        <input type="text" class="form-control" id="accountNo" name="accountNo" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary"><i class="fa fa-search" aria-hidden="true"></i> Find Balance</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Find Account Details Modal -->
+<div class="modal fade" id="findAccountModal" tabindex="-1" role="dialog" aria-labelledby="findAccountModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="findAccountModalLabel">Find Complete Account Details by Account Number</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form th:action="@{/findAccount}" method="post">
+                    <div class="form-group">
+                        <label for="accountNo2">Enter Account Number:</label>
+                        <input type="text" class="form-control" id="accountNo2" name="accountNo" required>
+                    </div>
+                    <button type="submit" class="btn btn-success"><i class="fa fa-search" aria-hidden="true"></i> Find Account Details</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Find Account Number Modal -->
+<div class="modal fade" id="findAccountNumberModal" tabindex="-1" role="dialog" aria-labelledby="findAccountNumberModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="findAccountNumberModalLabel">Find Account Number by Name and Phone Number</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form th:action="@{/findAccountNumber}" method="post">
+                    <div class="form-group">
+                        <label for="first_name">Enter The Fisrt Name:</label>
+                        <input type="text" class="form-control" id="first_name" name="first_name" required>
+                    </div>
+					<div class="form-group">
+					    <label for="last_name">Enter The Last Name:</label>
+					    <input type="text" class="form-control" id="last_name" name="last_name" required>
+					</div>
+                    <div class="form-group">
+                        <label for="PhoneNo">Enter The Phone Number:</label>
+                        <input type="text" class="form-control" id="PhoneNo" name="PhoneNo" required>
+                    </div>
+                    <button type="submit" class="btn btn-info"><i class="fa fa-search" aria-hidden="true"></i> Find Account Number</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7W9X39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script>
+    // Add your JavaScript for handling form submissions here
+    // Example for handling Find Balance form submission
+    document.getElementById("findBalanceForm").addEventListener("submit", function(event) {
+        event.preventDefault();
+        const accountNo = document.getElementById("accountNo").value;
+        // Add your AJAX call or form submission logic here
+        console.log("Finding balance for account number:", accountNo);
+        // Close the modal
+        $('#findBalanceModal').modal('hide');
+    });
+
+    // Example for handling Find Account Details form submission
+    document.getElementById("findAccountForm").addEventListener("submit", function(event) {
+        event.preventDefault();
+        const accountNo = document.getElementById("accountNo2").value;
+        // Add your AJAX call or form submission logic here
+        console.log("Finding account details for account number:", accountNo);
+        // Close the modal
+        $('#findAccountModal').modal('hide');
+    });
+
+    // Example for handling Find Account Number form submission
+    document.getElementById("findAccountNumberForm").addEventListener("submit", function(event) {
+        event.preventDefault();
+        const customerName = document.getElementById("customerName").value;
+        const customerPhone = document.getElementById("customerPhone").value;
+        // Add your AJAX call or form submission logic here
+        console.log("Finding account number for customer:", customerName, "with phone:", customerPhone);
+        // Close the modal
+        $('#findAccountNumberModal').modal('hide');
+    });
+</script>
+</body>
+</html>
